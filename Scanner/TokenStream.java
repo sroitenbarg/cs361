@@ -229,8 +229,7 @@ public class TokenStream {
 	}
 
 	private boolean isDigit(char c) {
-		// TODO TO BE COMPLETED
-		return false;
+		return Character.isDigit(c)
 	}
 
 	public boolean isEndofFile() {
