@@ -56,7 +56,15 @@ public class TokenStream {
 			nextChar = readChar();
 			if (nextChar == '/') { // If / is followed by another /
 				// skip rest of line - it's a comment.
-				// TODO TO BE COMPLETED
+				while(!isEndOfLine(nextChar) && !isEof){
+					nextChar = readChar();
+				}
+
+				if(!isEof){
+					nextChar = readChar();
+				}
+
+				return nextToken();
 				// look for <cr>, <lf>, <ff>
 
 			} else {
