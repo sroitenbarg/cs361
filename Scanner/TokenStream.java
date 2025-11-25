@@ -73,46 +73,84 @@ public class TokenStream {
 			t.setType("Operator");
 			t.setValue(t.getValue() + nextChar);
 			switch (nextChar) {
-			// TODO TO BE COMPLETED WHERE NEEDED
-			case '<':
-				// <=
-			case '>':
-				// >=
-			case '=':
-				// ==
-			case '!':
-				// !=
-				nextChar = readChar();
-				return t;
-			case '|':
-				// Look for ||
-				nextChar = readChar();
-				if (nextChar == '|') {
-					t.setValue(t.getValue() + nextChar);
+				case '<':
+					// <=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					}
+					return t;
+				case '>':
+					// >=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					}
+					return t;
+				case '=':
+					// ==
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+				case '!':
+					// Look for !=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					}
+					return t;
+				case '|':
+					// Look for ||
+					nextChar = readChar();
+					if (nextChar == '|') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+	
+				case '&':
+					// Look for &&
+					nextChar = readChar();
+					if (nextChar == '&') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+	
+					return t;
+				case ':':
+					// Look for :=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+	
+				default: // all other operators
 					nextChar = readChar();
 					return t;
-				} else {
-					t.setType("Other");
 				}
-				return t;
-
-			case '&':
-				// Look or &&
-				nextChar = readChar();
-				if (nextChar == '&') {
-					t.setValue(t.getValue() + nextChar);
-					nextChar = readChar();
-					return t;
-				} else {
-					t.setType("Other");
-				}
-
-				return t;
-
-			default: // all other operators
-				nextChar = readChar();
-				return t;
-			}
 		}
 
 		// Then check for a separator
@@ -220,8 +258,7 @@ public class TokenStream {
 
 	private boolean isOperator(char c) {
 		// Checks for characters that start operators
-		// TODO TO BE COMPLETED
-		return false;
+		return "+-*/=<>&!|:".indexOf(c) != -1;
 	}
 
 	private boolean isLetter(char c) {
@@ -229,7 +266,7 @@ public class TokenStream {
 	}
 
 	private boolean isDigit(char c) {
-		return Character.isDigit(c)
+		return Character.isDigit(c);
 	}
 
 	public boolean isEndofFile() {
