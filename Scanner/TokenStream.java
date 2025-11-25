@@ -253,7 +253,7 @@ public class TokenStream {
 	}
 
 	private boolean isSeparator(char c) {
-		return "(){};," indexOf(c) != -1;
+		return "(){};,".indexOf(c) != -1;
 	}
 
 	private boolean isOperator(char c) {
