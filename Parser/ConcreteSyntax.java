@@ -212,7 +212,7 @@ public class ConcreteSyntax {
 		while (token.getValue().equals("+") || token.getValue().equals("-")) {
 			b = new Binary();
 			b.op = new Operator(token.getValue());
-            token = input.nextToken();  // consume op
+            token = input.nextToken();  
             b.term1 = e;
             b.term2 = term();
             e = b;
@@ -228,7 +228,7 @@ public class ConcreteSyntax {
 		while (token.getValue().equals("*") || token.getValue().equals("/")) {
 			b = new Binary();
 			b.op = new Operator(token.getValue());
-            token = input.nextToken();  // consume op
+            token = input.nextToken();  
             b.term1 = e;
             b.term2 = negation();
 			e = b;
@@ -289,7 +289,7 @@ public class ConcreteSyntax {
 
         c.elsebranch = null;
         if (token.getValue().equals("else")) {
-            token = input.nextToken(); // consume 'else'
+            token = input.nextToken(); 
             c.elsebranch = statement();
 		}
 		return c;
